@@ -3,7 +3,7 @@ layout: essay
 type: essay
 title: "The Value of UI Frameworks: Bootstrap 5"
 # All dates must be YYYY-MM-DD format!
-date: 2024-09-05
+date: 2024-10-10
 published: true
 labels:
   - UI Frameworks
