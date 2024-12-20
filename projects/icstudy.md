@@ -18,9 +18,9 @@ summary: "Web application to help UH Manoa students conect through creating and 
 
 ## What is a ICStudy?  
 ICStudy is a web app that my group, ‘The Software Developers’, made to help UH Manoa students connect and study together. It’s built using a Next.js template and was our final project for ICS 314. The idea is simple: students are able to create study sessions on the site, and others can join them. It’s a way to make studying more social and productive.
+<br/>
 
 ## Cool Features
-<br/>
 
 ### User Registration with Email Verification  
 - To keep it exclusive to UH students, we added an email verification system. Only UH emails work for signing up. This was done using nodemailer and connecting it to a gmail account.
@@ -41,7 +41,8 @@ Every registered user can get a profile where they can:
 ### Admin Page  
 Admins have their own page where they can:  
 - Ban or unban users.  
-- Manage study sessions to keep everything running smoothly.  
+- Manage study sessions to keep everything running smoothly. 
+<br/> 
 
 ## How We Built It
 
@@ -56,6 +57,7 @@ Our group of five divided tasks to cover everything, like frontend design, backe
 ### Challenges:  
 - Setting up email verification was tricky, but after researching and testing, we got it working.  
 - Designing the admin controls was also hard to make powerful but also fair.  
+<br/>
 
 ## Why It’s Great  
 ICStudy makes studying more fun and collaborative. It’s a good way for students to meet new people and stay on top of their work even with a little bit of competition with a leaderboard. This project shows what we learned in ICS 314 about building real-world, user-friendly apps.  
