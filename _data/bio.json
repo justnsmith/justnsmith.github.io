@@ -40,7 +40,9 @@
                   "ICS 211: CSCI Intro to Computer Science II", 
                   "ICS 212: CSCI Program Structure", 
                   "ICS 141: CSCI Discrete Mathematics I",
-                  "ICS 241: CSCI Discrete Mathematics II"
+                  "ICS 241: CSCI Discrete Mathematics II",
+                  "ICS 311: Algorithms",
+                  "ICS 314: Software Engineering I"
       ]
     }
   ],
