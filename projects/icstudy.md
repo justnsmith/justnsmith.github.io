@@ -3,26 +3,27 @@ layout: project
 type: project
 image: img/icstudy/logo.png
 title: "ICStudy Project"
-date: 2023
+date: 2024
 published: true
 labels:
-  - File-Based Database
-  - Backend Development
-  - C
-summary: "Banking database system written in C that mangages customer records and maintains data persistence using text files."
+  - Full Stack Development
+  - Team Project
+  - Educational Tool
+summary: "Web application to help UH Manoa students conect through creating and joining study sessions."
 ---
 
 <div class="text-center p-4">
   <img width="700px" src="../img/icstudy/homepage.png" class="img-thumbnail">
 </div>
 
-**What is a ICStudy?**  
+## What is a ICStudy?  
 ICStudy is a web app that my group, ‘The Software Developers’, made to help UH Manoa students connect and study together. It’s built using a Next.js template and was our final project for ICS 314. The idea is simple: students are able to create study sessions on the site, and others can join them. It’s a way to make studying more social and productive.
 
 ## Cool Features
+<br/>
 
 ### User Registration with Email Verification  
-To keep it exclusive to UH students, we added an email verification system. Only UH emails work for signing up. This was done using nodemailer and connecting it to a gmail account.
+- To keep it exclusive to UH students, we added an email verification system. Only UH emails work for signing up. This was done using nodemailer and connecting it to a gmail account.
 
 ### Create and Join Study Sessions  
 - Students are able to make their own study session with details like topic, time slot, location and other details that the student would like to add.  
@@ -61,3 +62,5 @@ ICStudy makes studying more fun and collaborative. It’s a good way for student
 
 
 You can view the source code [here](https://github.com/thesoftwaredevelopers/TheSoftwareDevelopers).
+
+<br/>
