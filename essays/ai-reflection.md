@@ -11,6 +11,8 @@ labels:
   - AI in Education
 ---
 
+<img width="350px" class="rounded float-start pe-4" src="https://www.ui42.com/buxus/images/chatGPT_.jpeg">
+
 ## I. Introduction: 
 
 Artificial Intelligence has become an increasingly useful tool in education, particularly in Software Engineering. They can automate tasks and provide real-time assistance while also supporting personalized learning which has made it a valuable asset in the classroom. In ICS 314, the use of AI technologies has been a key component in my learning experience. Through tools like ChatGPT and GitHub Copilot, I have been able to get instant feedback, generate code examples, and get explanations on code that I did not understand. These AI tools have not only changed the way I learn software engineering principles but it has also changed how I approach solving problems and coding tasks in the course. In this paper, I will reflect on my use and experience of AI in ICS 314 by looking at specific instances where AI has been most useful, the challenges I encountered, and the potential for AI to change the future of software engineering education.
