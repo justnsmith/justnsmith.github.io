@@ -11,7 +11,7 @@ labels:
   - AI in Education
 ---
 
-<img width="350px" class="rounded float-start pe-4" src="https://www.ui42.com/buxus/images/chatGPT_.jpeg">
+<img width="450px" class="rounded float-start pe-4" src="https://www.ui42.com/buxus/images/chatGPT_.jpeg">
 
 ## I. Introduction: 
 
