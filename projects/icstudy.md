@@ -50,6 +50,22 @@ Admins have special privileges to:
 
 ---
 
+## My Contributions
+I contributed the following features to the ICStudy project:  
+- Designed and implemented the **session mock-up page**.  
+- Integrated **email verification** for new users.  
+- Developed the **forgot password** feature linked with email.  
+- Styled the **log in**, **log out**, and **sign-up** pages for a user-friendly interface.  
+
+---
+
+## What I Learned  
+Working on ICStudy taught me:  
+- How to effectively collaborate with a team to divide tasks and integrate individual contributions into a cohesive project.  
+- The fundamentals of working with both **frontend** and **backend** technologies, including styling and database interaction.  
+
+---
+
 ## How We Built It
 
 ### Tech Stack  
@@ -76,3 +92,5 @@ Our group of five divided the workload to focus on:
 ICStudy makes studying more enjoyable and collaborative. It’s a great way to meet new people, stay productive, and have a little friendly competition via the leaderboard. This project highlights everything we learned in ICS 314 about developing real-world, user-focused applications.  
 
 You can view the source code [here](https://github.com/thesoftwaredevelopers/TheSoftwareDevelopers).
+
+You can view the project page [here](https://thesoftwaredevelopers.github.io).
