@@ -10,6 +10,8 @@ labels:
   - StackOverflow
 ---
 
+<img width="550px" class="rounded float-start pe-4" src="https://bustin.com/wp-content/uploads/2018/08/bigstock-Question-Mark-114454214.jpg">
+
 ## The Importance of Smart Questions
 As a Computer Science student, I often encounter questions about code or specific topics. Often when I go and search for answers,  I find that StackOverflow and similar websites have already relevant responses. These platforms are invaluable for students that are seeking answers and also engaging with the community. However, I’ve noticed that while some questions are articulated well, others are broad and lack clear objectives. This is where the skill of asking smart questions becomes crucial.In the field of software engineering, the ability to ask smart questions is an important skill that separates proficient engineers from novices. Smart questions aren’t just inquiries, they are a strategic tool for problem-solving, learning and overall advancing in the field. This essay will explore why smart questions are important for software engineers, the difference between smart and not smart questions, examine how responses reflect on the inquiries approach and reflect on the insights gained from this experience.
 
