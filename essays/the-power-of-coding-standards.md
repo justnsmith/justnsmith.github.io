@@ -10,7 +10,7 @@ labels:
   - Coding Standards
 ---
 
-<img width="300px" class="rounded float-start pe-4" src="https://miro.medium.com/v2/resize:fit:1400/1*OvaSRk5EFxb_mN_M_QpUNg.png">
+<img width="400px" class="rounded float-start pe-4" src="https://miro.medium.com/v2/resize:fit:1400/1*OvaSRk5EFxb_mN_M_QpUNg.png">
 
 ## Reflecting on Coding Standards
 When I was introduced to coding standards I thought it was similar to a rule book that someone would need to read and follow the rules to write clean code that is reusable and easy to read in large companies. However, as I learned about lints my view changed. Coding standards aren’t just stylistic preferences, they play an important role in improving code quality, encouraging collaboration, and even helping to learn programming languages.
