@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import Hero from "./components/Hero";
 import About from "./components/About";
+import TechStack from "./components/TechStack";
+import Experience from "./components/Experience";
+import Projects from "./components/Projects";
+import './styles/global.css';
 
 export default function App() {
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -23,19 +27,17 @@ export default function App() {
                 }}
             />
 
-            {/* Responsive container */}
-            <div className="flex flex-col md:flex-row h-full">
-                {/* Hero Section */}
-                <div className="w-full lg:w-1/2 h-screen overflow-y-auto z-10">
+            {/* Hero on the left */}
+            <div className="w-full lg:w-1/2 h-screen overflow-y-auto z-10">
+                <Hero />
+            </div>
 
-                    <Hero />
-                </div>
-
-                {/* About Section */}
-                <div className="w-full lg:w-1/2 h-screen overflow-y-auto z-10">
-
-                    <About />
-                </div>
+            {/* Scrollable sections on the right */}
+            <div className="w-full lg:w-1/2 h-screen overflow-y-auto z-10 space-y-16 pb-24">
+                <About />
+                <TechStack />
+                <Experience />
+                <Projects />
             </div>
         </div>
     );
