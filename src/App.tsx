@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import TechStack from "./components/TechStack";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
-import './styles/global.css';
+import "./styles/global.css";
 
 export default function App() {
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+    const rightScrollRef = useRef<HTMLDivElement>(null);
+    const leftRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -15,6 +17,30 @@ export default function App() {
         };
         window.addEventListener("mousemove", handleMouseMove);
         return () => window.removeEventListener("mousemove", handleMouseMove);
+    }, []);
+
+    useEffect(() => {
+        const leftEl = leftRef.current;
+        const rightEl = rightScrollRef.current;
+
+        if (!leftEl || !rightEl) return;
+
+        const handleScroll = (e: WheelEvent) => {
+            if (rightEl) {
+                rightEl.scrollBy({
+                    top: e.deltaY,
+                    behavior: "auto",
+                });
+            }
+
+            e.preventDefault(); // prevent scroll on left side
+        };
+
+        leftEl.addEventListener("wheel", handleScroll, { passive: false });
+
+        return () => {
+            leftEl.removeEventListener("wheel", handleScroll);
+        };
     }, []);
 
     return (
@@ -28,12 +54,12 @@ export default function App() {
             />
 
             {/* Hero on the left */}
-            <div className="w-full lg:w-1/2 h-screen overflow-y-auto z-10">
+            <div ref={leftRef} className="w-full lg:w-1/2 h-screen overflow-hidden z-10">
                 <Hero />
             </div>
 
             {/* Scrollable sections on the right */}
-            <div className="w-full lg:w-1/2 h-screen overflow-y-auto z-10 space-y-16 pb-24">
+            <div ref={rightScrollRef} className="w-full lg:w-1/2 h-screen overflow-y-auto z-10 space-y-16 pb-24">
                 <About />
                 <TechStack />
                 <Experience />

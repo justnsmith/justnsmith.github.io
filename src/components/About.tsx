@@ -2,9 +2,8 @@ export default function About() {
     return (
         <section
             id="about"
-            className="px-6 sm:px-12 md:px-16 lg:px-20 xl:px-24 pt-20 pb-300 space-y-8 text-white scroll-mt-28"
+            className="px-6 sm:px-12 md:px-16 lg:px-20 xl:px-24 pt-20 pb-300 space-y-8 text-gray-400 scroll-mt-28"
         >
-            <h2 className="text-3xl font-bold">About Me</h2>
             <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ipsa aliquid reiciendis laudantium error facilis necessitatibus, aut recusandae voluptas neque harum quibusdam ut debitis odit, autem iste cumque itaque consequatur.
             </p>

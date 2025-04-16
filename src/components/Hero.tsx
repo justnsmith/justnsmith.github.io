@@ -58,6 +58,14 @@ export default function Hero() {
         return () => observer.disconnect();
     }, []);
 
+    const handleNavigationClick = (id: string, event: React.MouseEvent<HTMLAnchorElement>) => {
+        event.preventDefault();
+        const targetSection = document.getElementById(id);
+        if (targetSection) {
+            targetSection.scrollIntoView({ behavior: "smooth" });
+        }
+    };
+
     return (
         <section className="h-full flex flex-col justify-start items-center px-6 sm:px-12 md:px-16 lg:px-20 xl:px-24 pt-20 bg-transparent text-white text-center">
             {/* Profile Picture */}
@@ -80,8 +88,7 @@ export default function Hero() {
 
             {/* Description */}
             <p className="text-gray-400 max-w-lg mb-6">
-                I build thoughtful, efficient software experiences. Passionate about backend engineering,
-                clean architecture, and great user experiences.
+                I build efficient, scalable systems and am interested in low-level programming and optimizing performance.
             </p>
 
             {/* Buttons */}
@@ -101,13 +108,13 @@ export default function Hero() {
                 </a>
             </div>
 
-
             {/* ScrollSpy Navigation */}
             <div className="mt-8 flex flex-col gap-6 text-center">
                 {sectionIds.map((id) => (
                     <a
                         key={id}
                         href={`#${id}`}
+                        onClick={(e) => handleNavigationClick(id, e)}
                         className={`block text-sm transition-all duration-300 transform ${activeSection === id
                             ? "text-white text-lg scale-110"
                             : "text-gray-500 text-sm"
@@ -125,19 +132,19 @@ export default function Hero() {
                 <a href="https://github.com/justnsmith" target="_blank" rel="noopener noreferrer">
                     <FontAwesomeIcon
                         icon={faGithub}
-                        className="w-8 h-8 hover:scale-110 transition-transform duration-300"
+                        className="w-8 h-8 text-gray-500 hover:text-white hover:scale-125 transition-all duration-300"
                     />
                 </a>
                 <a href="https://linkedin.com/in/jstinsmith" target="_blank" rel="noopener noreferrer">
                     <FontAwesomeIcon
                         icon={faLinkedin}
-                        className="w-8 h-8 hover:scale-110 transition-transform duration-300"
+                        className="w-8 h-8 text-gray-500 hover:text-white hover:scale-125 transition-all duration-300"
                     />
                 </a>
                 <a href="mailto:jstinwsmith@gmail.com">
                     <FontAwesomeIcon
                         icon={faGoogle}
-                        className="w-8 h-8 hover:scale-110 transition-transform duration-300"
+                        className="w-8 h-8 text-gray-500 hover:text-white hover:scale-125 transition-all duration-300"
                     />
                 </a>
             </div>
