@@ -34,29 +34,44 @@ export default function Hero() {
     }, [displayText, isDeleting, currentWordIndex]);
 
     return (
-        <section className="h-full flex flex-col justify-start px-4 sm:px-8 md:px-16 lg:px-32 xl:px-40 pt-20 bg-transparent text-white">
+        <section className="h-full flex flex-col justify-start items-center px-6 sm:px-12 md:px-16 lg:px-20 xl:px-24 pt-20 bg-transparent text-white text-center">
+            {/* Profile Picture */}
+            <img
+                src="/profile.jpeg"
+                alt="Profile"
+                className="w-36 h-36 mb-6 rounded-full border-2 border-indigo-500 shadow-md"
+            />
 
+            {/* Name */}
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
                 Justin Smith
             </h1>
+
+            {/* Animated Role */}
             <p className="text-indigo-400 text-xl md:text-2xl font-mono mb-6 h-12">
                 {displayText}
                 <span className="animate-pulse">|</span>
             </p>
-            <p className="text-gray-400 mb-6 max-w-lg">
+
+            {/* Description */}
+            <p className="text-gray-400 max-w-lg mb-6">
                 I build thoughtful, efficient software experiences. Passionate about backend engineering,
                 clean architecture, and great user experiences.
             </p>
-            <div className="flex gap-4">
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                    href="#projects"
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+                    href="/resume.pdf" // Replace with your actual resume path
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg transition"
                 >
-                    View Projects
+                    View Resume
                 </a>
                 <a
                     href="#contact"
-                    className="border border-indigo-500 hover:bg-indigo-500 text-white font-semibold py-2 px-4 rounded-lg transition"
+                    className="border border-indigo-500 hover:bg-indigo-500 text-white font-semibold py-2 px-6 rounded-lg transition"
                 >
                     Contact Me
                 </a>

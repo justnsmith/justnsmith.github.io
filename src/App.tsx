@@ -14,7 +14,7 @@ export default function App() {
     }, []);
 
     return (
-        <div className="relative min-h-screen text-white bg-gray-900">
+        <div className="relative flex flex-col lg:flex-row h-screen text-white bg-gray-900">
             {/* Global spotlight effect */}
             <div
                 className="pointer-events-none fixed inset-0 z-0 transition-all duration-200"
@@ -26,12 +26,14 @@ export default function App() {
             {/* Responsive container */}
             <div className="flex flex-col md:flex-row h-full">
                 {/* Hero Section */}
-                <div className="w-full md:w-1/2 h-screen sticky top-0 z-10">
+                <div className="w-full lg:w-1/2 h-screen overflow-y-auto z-10">
+
                     <Hero />
                 </div>
 
                 {/* About Section */}
-                <div className="w-full md:w-1/2 h-screen overflow-y-auto z-10">
+                <div className="w-full lg:w-1/2 h-screen overflow-y-auto z-10">
+
                     <About />
                 </div>
             </div>
