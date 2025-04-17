@@ -1,13 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin, faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub, faLinkedin, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-const words = [
-    "Software Engineer",
-    "Backend Developer",
-];
-
+const words = ["Software Engineer", "Backend Developer"];
 const sectionIds = ["about", "tech", "experience", "projects"];
 
 export default function Hero() {
@@ -15,6 +12,7 @@ export default function Hero() {
     const [displayText, setDisplayText] = useState("");
     const [isDeleting, setIsDeleting] = useState(false);
     const [activeSection, setActiveSection] = useState("about");
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
         const currentWord = words[currentWordIndex];
@@ -58,17 +56,44 @@ export default function Hero() {
         return () => observer.disconnect();
     }, []);
 
-    const handleNavigationClick = (id: string, event: React.MouseEvent<HTMLAnchorElement>) => {
-        event.preventDefault();
-        const targetSection = document.getElementById(id);
-        if (targetSection) {
-            targetSection.scrollIntoView({ behavior: "smooth" });
+    const handleNavigationClick = (id: string, e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        const section = document.getElementById(id);
+        if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
+            setIsMenuOpen(false);
         }
     };
 
     return (
-        <section className="h-full flex flex-col justify-start items-center px-6 sm:px-12 md:px-16 lg:px-20 xl:px-24 pt-20 bg-transparent text-white text-center">
-            {/* Profile Picture */}
+        <section className="relative min-h-screen flex flex-col items-center px-6 sm:px-12 pt-20 bg-transparent text-white text-center">
+            {/* Burger Menu Top-Right (Only visible on small screens) */}
+            <div className="absolute top-4 right-6 md:hidden">
+                <button
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className="text-gray-300 hover:text-white"
+                >
+                    <FontAwesomeIcon icon={faBars} className="w-6 h-6" />
+                </button>
+
+                {/* Dropdown Menu */}
+                {isMenuOpen && (
+                    <div className="absolute right-0 mt-2 bg-gray-800 border border-indigo-500 rounded-md shadow-lg py-2 z-50 w-40">
+                        {sectionIds.map((id) => (
+                            <a
+                                key={id}
+                                href={`#${id}`}
+                                onClick={(e) => handleNavigationClick(id, e)}
+                                className="block px-4 py-2 text-sm text-gray-300 hover:text-white"
+                            >
+                                {id.charAt(0).toUpperCase() + id.slice(1)}
+                            </a>
+                        ))}
+                    </div>
+                )}
+            </div>
+
+            {/* Profile Image */}
             <img
                 src="/profile.jpeg"
                 alt="Profile"
@@ -76,9 +101,7 @@ export default function Hero() {
             />
 
             {/* Name */}
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-                Justin Smith
-            </h1>
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">Justin Smith</h1>
 
             {/* Animated Role */}
             <p className="text-indigo-400 text-xl md:text-2xl font-mono mb-6 h-12">
@@ -96,55 +119,52 @@ export default function Hero() {
                 <a
                     href="/resume.pdf"
                     download="Justin_Smith_Resume.pdf"
-                    className="bg-indigo-600 text-gray-300 border border-transparent hover:bg-indigo-700 hover:border-indigo-700 hover:text-white font-semibold py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
+                    className="bg-indigo-600 text-gray-300 hover:bg-indigo-700 hover:text-white font-semibold py-2 px-6 rounded-lg transition-all"
                 >
                     Download Resume
                 </a>
                 <a
                     href="#contact"
-                    className="bg-transparent border-2 border-indigo-500 text-gray-300 hover:bg-indigo-500 hover:text-white hover:border-indigo-500 font-semibold py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
+                    className="border-2 border-indigo-500 text-gray-300 hover:bg-indigo-500 hover:text-white font-semibold py-2 px-6 rounded-lg transition-all"
                 >
                     Contact Me
                 </a>
             </div>
 
-            {/* ScrollSpy Navigation */}
-            <div className="mt-8 flex flex-col gap-6 text-center">
+            {/* Section Scrollspy Links (visible only on md+) */}
+            <div className="hidden md:flex flex-col gap-6 mt-2">
                 {sectionIds.map((id) => (
                     <a
                         key={id}
                         href={`#${id}`}
                         onClick={(e) => handleNavigationClick(id, e)}
-                        className={`block text-sm transition-all duration-300 transform ${activeSection === id
-                            ? "text-white text-lg scale-110"
-                            : "text-gray-500 text-sm"
-                            } hover:text-white hover:scale-110 hover:font-semibold`}
+                        className={`text-sm font-medium transition ${
+                            activeSection === id ? "text-white scale-110" : "text-gray-400"
+                        } hover:text-white`}
                     >
-                        <span className="block px-2 py-1">
-                            {id.charAt(0).toUpperCase() + id.slice(1)}
-                        </span>
+                        {id.charAt(0).toUpperCase() + id.slice(1)}
                     </a>
                 ))}
             </div>
 
-            {/* Social Media Icons */}
+            {/* Social Icons */}
             <div className="flex gap-6 mt-auto mb-4">
-                <a href="https://github.com/justnsmith" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/justnsmith" target="_blank">
                     <FontAwesomeIcon
                         icon={faGithub}
-                        className="w-8 h-8 text-gray-500 hover:text-white hover:scale-125 transition-all duration-300"
+                        className="w-8 h-8 text-gray-500 hover:text-white transition-transform transform hover:scale-125"
                     />
                 </a>
-                <a href="https://linkedin.com/in/jstinsmith" target="_blank" rel="noopener noreferrer">
+                <a href="https://linkedin.com/in/jstinsmith" target="_blank">
                     <FontAwesomeIcon
                         icon={faLinkedin}
-                        className="w-8 h-8 text-gray-500 hover:text-white hover:scale-125 transition-all duration-300"
+                        className="w-8 h-8 text-gray-500 hover:text-white transition-transform transform hover:scale-125"
                     />
                 </a>
                 <a href="mailto:jstinwsmith@gmail.com">
                     <FontAwesomeIcon
                         icon={faGoogle}
-                        className="w-8 h-8 text-gray-500 hover:text-white hover:scale-125 transition-all duration-300"
+                        className="w-8 h-8 text-gray-500 hover:text-white transition-transform transform hover:scale-125"
                     />
                 </a>
             </div>
