@@ -40,6 +40,7 @@ export default function App() {
     const rightScrollRef = useRef<HTMLDivElement>(null);
     const mousePos = useMousePosition();
     const isLargeScreen = useIsLargeScreen();
+    const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
     const handleScroll = (e: WheelEvent) => {
         if (isLargeScreen && leftRef.current && rightScrollRef.current) {
@@ -84,13 +85,18 @@ export default function App() {
                 <div className="flex flex-row h-screen">
                     {/* Left */}
                     <div ref={leftRef} className="w-1/2 h-screen overflow-hidden z-10">
-                        <Hero />
+                        <Hero
+                            isContactModalOpen={isContactModalOpen}
+                            setIsContactModalOpen={setIsContactModalOpen}
+                        />
                     </div>
 
-                    {/* Right scrollable */}
+                    {/* Right scrollable - Removed transition-opacity */}
                     <div
                         ref={rightScrollRef}
-                        className="w-1/2 h-screen overflow-y-auto z-10 space-y-16 pb-24"
+                        className={`w-1/2 h-screen overflow-y-auto z-10 space-y-16 pb-24 ${
+                            isContactModalOpen ? "hidden" : "block"
+                        }`}
                     >
                         <About />
                         <TechStack />
@@ -99,13 +105,18 @@ export default function App() {
                     </div>
                 </div>
             ) : (
-                // Mobile stacked view — make sure background extends!
+                // Mobile stacked view - Removed transition-opacity
                 <div className="flex flex-col min-h-screen bg-gray-900 z-10 space-y-16 pb-24">
-                    <Hero />
-                    <About />
-                    <TechStack />
-                    <Experience />
-                    <Projects />
+                    <Hero
+                        isContactModalOpen={isContactModalOpen}
+                        setIsContactModalOpen={setIsContactModalOpen}
+                    />
+                    <div className={isContactModalOpen ? "hidden" : "block"}>
+                        <About />
+                        <TechStack />
+                        <Experience />
+                        <Projects />
+                    </div>
                 </div>
             )}
         </div>
