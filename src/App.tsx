@@ -4,6 +4,7 @@ import About from "./components/About";
 import TechStack from "./components/TechStack";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
+import "./styles/global.css";
 
 // Hook to track mouse position
 function useMousePosition() {
