@@ -357,21 +357,21 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                 </div>
             )}
 
-            {/* Social Icons - Fixed footer */}
-            <div className="fixed bottom-0 w-full flex justify-center gap-6 py-4 bg-gray-900 z-30">
-                <a href="https://github.com/justnsmith" target="_blank" className="bg-gray-900 group">
+            {/* Social Icons - Fixed footer - UPDATED with transparency to not block mouse spotlight */}
+            <div className="fixed bottom-0 w-full flex justify-center gap-6 py-4 bg-transparent z-30">
+                <a href="https://github.com/justnsmith" target="_blank" className="bg-transparent group">
                     <FontAwesomeIcon
                         icon={faGithub}
                         className="w-8 h-8 text-gray-500 transition-all duration-300 transform group-hover:text-white group-hover:scale-125"
                     />
                 </a>
-                <a href="https://linkedin.com/in/jstinsmith" target="_blank" className="bg-gray-900 group">
+                <a href="https://linkedin.com/in/jstinsmith" target="_blank" className="bg-transparent group">
                     <FontAwesomeIcon
                         icon={faLinkedin}
                         className="w-8 h-8 text-gray-500 transition-all duration-300 transform group-hover:text-white group-hover:scale-125"
                     />
                 </a>
-                <a href="mailto:jstinwsmith@gmail.com" className="bg-gray-900 group">
+                <a href="mailto:jstinwsmith@gmail.com" className="bg-transparent group">
                     <FontAwesomeIcon
                         icon={faGoogle}
                         className="w-8 h-8 text-gray-500 transition-all duration-300 transform group-hover:text-white group-hover:scale-125"
@@ -379,12 +379,12 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                 </a>
             </div>
 
-            {/* Contact Form Modal - Updated with original color scheme */}
+            {/* Contact Form Modal */}
             {isContactModalOpen && (
                 <div
                     id="contact-modal-backdrop"
                     className="fixed inset-0 bg-gray-900 bg-opacity-30 flex items-center justify-center z-50 px-4"
-                    style={{ backdropFilter: "blur(20px)" }} // Increased blur effect
+                    style={{ backdropFilter: "blur(20px)" }}
                 >
                     <div
                         className="bg-gray-800 border border-indigo-500 rounded-xl w-full max-w-md overflow-hidden transform transition-all duration-500 ease-out"
@@ -405,7 +405,7 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                         </div>
 
                         <div className="p-6">
-                            {/* Form content remains unchanged */}
+                            {/* Form content with modifications */}
                             {formStatus.success ? (
                                 <div className="flex flex-col items-center justify-center py-6 animate-fadeIn">
                                     <div className="w-16 h-16 bg-green-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
@@ -437,8 +437,6 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                                             className="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                                             required
                                         />
-                                        <span className={`absolute bottom-0 left-0 h-0.5 bg-indigo-500 transition-all duration-300 ${focusedField === 'name' ? 'w-full' : 'w-0'
-                                            }`}></span>
                                     </div>
 
                                     <div className="relative">
@@ -462,8 +460,6 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                                             className="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                                             required
                                         />
-                                        <span className={`absolute bottom-0 left-0 h-0.5 bg-indigo-500 transition-all duration-300 ${focusedField === 'email' ? 'w-full' : 'w-0'
-                                            }`}></span>
                                     </div>
 
                                     <div className="relative">
@@ -487,8 +483,6 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                                             className="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                                             required
                                         ></textarea>
-                                        <span className={`absolute bottom-0 left-0 h-0.5 bg-indigo-500 transition-all duration-300 ${focusedField === 'message' ? 'w-full' : 'w-0'
-                                            }`}></span>
                                     </div>
 
                                     {formStatus.error && (
@@ -500,10 +494,9 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                                     <button
                                         type="submit"
                                         disabled={formStatus.submitting}
-                                        className={`w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition-all flex items-center justify-center relative overflow-hidden group ${formStatus.submitting ? "opacity-80 cursor-not-allowed" : ""
+                                        className={`w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center ${formStatus.submitting ? "opacity-80 cursor-not-allowed" : ""
                                             }`}
                                     >
-                                        <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full opacity-10 group-hover:w-full group-hover:h-full"></span>
                                         {formStatus.submitting ? (
                                             <>
                                                 <FontAwesomeIcon icon={faSpinner} className="w-5 h-5 mr-2 animate-spin" />
@@ -511,7 +504,7 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                                             </>
                                         ) : (
                                             <>
-                                                <FontAwesomeIcon icon={faPaperPlane} className="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform" />
+                                                <FontAwesomeIcon icon={faPaperPlane} className="w-5 h-5 mr-2" />
                                                 Send Message
                                             </>
                                         )}
