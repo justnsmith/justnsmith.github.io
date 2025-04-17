@@ -357,8 +357,8 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                 </div>
             )}
 
-            {/* Social Icons - Fixed footer - UPDATED with transparency to not block mouse spotlight */}
-            <div className="fixed bottom-0 w-full flex justify-center gap-6 py-4 bg-transparent z-30">
+            {/* Social Icons - Dynamic footer instead of fixed when burger menu is present */}
+            <div className={`${isMobileView ? 'w-full flex justify-center gap-6 py-4 bg-transparent mt-auto' : 'fixed bottom-0 w-full flex justify-center gap-6 py-4 bg-transparent z-30'}`}>
                 <a href="https://github.com/justnsmith" target="_blank" className="bg-transparent group">
                     <FontAwesomeIcon
                         icon={faGithub}
@@ -393,14 +393,14 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                             animation: "modalEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards"
                         }}
                     >
-                        {/* Modal Header with Original Style */}
+                        {/* Modal Header with Exit Button Fixed to be a Perfect Circle */}
                         <div className="p-6 pb-2 flex justify-between items-center border-b border-gray-700">
                             <h2 className="text-2xl font-bold text-white">Contact Me</h2>
                             <button
                                 onClick={closeModal}
-                                className="text-gray-400 hover:text-white transition-colors bg-gray-700 hover:bg-gray-600 rounded-full p-1"
+                                className="text-gray-400 hover:text-white transition-colors bg-gray-700 hover:bg-gray-600 rounded-full w-8 h-8 flex items-center justify-center"
                             >
-                                <FontAwesomeIcon icon={faTimes} className="w-5 h-5" />
+                                <FontAwesomeIcon icon={faTimes} className="w-4 h-4" />
                             </button>
                         </div>
 
@@ -420,8 +420,8 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                                         <label
                                             htmlFor="name"
                                             className={`absolute left-3 transition-all duration-200 ${focusedField === 'name' || formData.name
-                                                    ? '-top-2 text-xs text-indigo-400 bg-gray-800 px-1 z-10'
-                                                    : 'top-2 text-gray-400'
+                                                ? '-top-2 text-xs text-indigo-400 bg-gray-800 px-1 z-10'
+                                                : 'top-2 text-gray-400'
                                                 }`}
                                         >
                                             Name
@@ -443,8 +443,8 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                                         <label
                                             htmlFor="email"
                                             className={`absolute left-3 transition-all duration-200 ${focusedField === 'email' || formData.email
-                                                    ? '-top-2 text-xs text-indigo-400 bg-gray-800 px-1 z-10'
-                                                    : 'top-2 text-gray-400'
+                                                ? '-top-2 text-xs text-indigo-400 bg-gray-800 px-1 z-10'
+                                                : 'top-2 text-gray-400'
                                                 }`}
                                         >
                                             Email
@@ -466,8 +466,8 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                                         <label
                                             htmlFor="message"
                                             className={`absolute left-3 transition-all duration-200 ${focusedField === 'message' || formData.message
-                                                    ? '-top-2 text-xs text-indigo-400 bg-gray-800 px-1 z-10'
-                                                    : 'top-2 text-gray-400'
+                                                ? '-top-2 text-xs text-indigo-400 bg-gray-800 px-1 z-10'
+                                                : 'top-2 text-gray-400'
                                                 }`}
                                         >
                                             Message
