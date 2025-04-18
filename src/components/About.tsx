@@ -29,7 +29,7 @@ export default function About() {
                         , with a strong interest in backend development and lower-level systems. I enjoy building things that work efficiently behind the scenes—whether it's a database-powered app, a network protocol project, or a tool that interacts closely with the operating system.
                     </p>
                     <p>
-                        I've lived in Hawaiʻi for over 13 years and have grown to appreciate the balance between focused work and an active, curious life. When I'm not coding, you'll probably find me running long distances, playing tennis, practicing piano, or reading a book. I also love exploring how things work at a deeper level, whether that's digging into memory management in C or understanding how compilers transform code into machine instructions.
+                        I've lived in Hawaiʻi for over 15 years and have grown to appreciate the balance between focused work and an active, curious life. When I'm not coding, you'll probably find me running long distances, playing tennis, practicing piano, or reading a book. I also love exploring how things work at a deeper level, whether that's digging into memory management in C or understanding how compilers transform code into machine instructions.
                     </p>
                     <p>
                         I'm always learning, always building, and always looking for ways to grow both technically and creatively.

@@ -81,6 +81,18 @@ export default function App() {
                 }}
             />
 
+            {/* Custom text highlight styling */}
+            <style>{`
+                ::selection {
+                    background-color: rgba(34, 211, 238, 0.3); /* cyan-400 with opacity */
+                    color: white;
+                }
+                ::-moz-selection {
+                    background-color: rgba(34, 211, 238, 0.3); /* cyan-400 with opacity */
+                    color: white;
+                }
+            `}</style>
+
             {isLargeScreen ? (
                 <div className="flex flex-row h-screen">
                     {/* Left */}
