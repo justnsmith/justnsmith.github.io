@@ -225,15 +225,36 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
     }, [displayText, isDeleting, currentWordIndex]);
 
     useEffect(() => {
+        // Keep track of intersection ratios for each section
+        const sectionIntersections: Record<string, number> = {};
+
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setActiveSection(entry.target.id);
+                    // Store the intersection ratio for each section
+                    sectionIntersections[entry.target.id] = entry.intersectionRatio;
+
+                    // Find the section with the highest intersection ratio
+                    let maxRatio = 0;
+                    let currentSection = activeSection;
+
+                    Object.keys(sectionIntersections).forEach((id) => {
+                        if (sectionIntersections[id] > maxRatio) {
+                            maxRatio = sectionIntersections[id];
+                            currentSection = id;
+                        }
+                    });
+
+                    // Only update if we have a meaningful intersection
+                    if (maxRatio > 0) {
+                        setActiveSection(currentSection);
                     }
                 });
             },
-            { threshold: 0.1 }
+            {
+                threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5],
+                rootMargin: "-10% 0px -70% 0px" // This gives priority to sections near the top of viewport
+            }
         );
 
         sectionIds.forEach((id) => {
@@ -323,10 +344,10 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <a
                     href="/resume.pdf"
-                    download="Justin_Smith_Resume.pdf"
+                    target="_blank"
                     className="bg-indigo-600 text-gray-300 hover:bg-indigo-700 hover:text-white font-semibold py-2 px-6 rounded-lg transition-all hover:shadow-lg hover:shadow-indigo-600/20 transform hover:-translate-y-0.5"
                 >
-                    Download Resume
+                    View Resume
                 </a>
                 <button
                     onClick={handleContactClick}
