@@ -7,7 +7,6 @@ import { faBars, faTimes, faPaperPlane, faSpinner, faCheck } from "@fortawesome/
 const words = ["Software Engineer", "Backend Developer"];
 const sectionIds = ["about", "tech", "experience", "projects"];
 
-// Updated prop types to include the modal state
 interface HeroProps {
     isContactModalOpen: boolean;
     setIsContactModalOpen: (isOpen: boolean) => void;
@@ -101,7 +100,7 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                     Accept: "application/json"
                 },
                 body: JSON.stringify({
-                    access_key: "050a2265-c7fe-4d88-a397-b0e7050fe551", // Replace with your Web3Forms access key
+                    access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
                     name: formData.name,
                     email: formData.email,
                     message: formData.message,
@@ -128,7 +127,7 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
 
                 // Close modal after a delay
                 setTimeout(() => {
-                    setIsContactModalOpen(false); // Using the prop function to update parent state
+                    setIsContactModalOpen(false);
                     setFormStatus({
                         submitting: false,
                         success: false,
@@ -152,7 +151,7 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
     // Check window size and update mobile view state
     useEffect(() => {
         const checkMobileView = () => {
-            setIsMobileView(window.innerWidth < 1024); // Use lg breakpoint (1024px)
+            setIsMobileView(window.innerWidth < 1024);
         };
 
         // Initial check
@@ -194,7 +193,7 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
     useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
             if (e.key === 'Escape' && isContactModalOpen) {
-                setIsContactModalOpen(false); // Using the prop function to update parent state
+                setIsContactModalOpen(false);
             }
         };
 

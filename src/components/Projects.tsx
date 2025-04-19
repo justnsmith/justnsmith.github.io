@@ -125,17 +125,27 @@ export default function Projects() {
                             key={project.id}
                             className={`relative border border-gray-800 rounded-md overflow-hidden
                                       bg-gray-900/30 backdrop-blur-sm
-                                      transition-all duration-200 ease-in-out
+                                      hover:bg-gray-800/50 hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 hover:scale-[1.005]
                                       ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}
-                                      ${hoveredProject === project.id ? 'bg-gray-800/50 border-indigo-500/50 shadow-lg shadow-indigo-500/10 scale-[1.005]' : ''}
-                                      hover:bg-gray-800/50 hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 hover:scale-[1.005]`}
-                            style={{ transitionDelay: `${index * 100}ms` }}
+                                      ${hoveredProject === project.id ? 'bg-gray-800/50 border-indigo-500/50 shadow-lg shadow-indigo-500/10 scale-[1.005]' : ''}`}
+                            style={{
+                                transitionDelay: `${index * 100}ms`,
+                                // Separate transitions for appearance animation and hover effects
+                                transition: hoveredProject === project.id || hoveredProject === null
+                                    ? 'transform 200ms ease-in-out, background-color 200ms ease-in-out, border-color 200ms ease-in-out, box-shadow 200ms ease-in-out'
+                                    : 'opacity 700ms, transform 700ms'
+                            }}
                             onMouseEnter={() => setHoveredProject(project.id)}
                             onMouseLeave={() => setHoveredProject(null)}
                             onClick={() => navigateToGitHub(project.githubUrl)}
                         >
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 transform origin-left transition-transform duration-200"
-                                style={{ transform: hoveredProject === project.id ? 'scaleX(1)' : 'scaleX(0)' }}></div>
+                            <div
+                                className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 transform origin-left"
+                                style={{
+                                    transform: hoveredProject === project.id ? 'scaleX(1)' : 'scaleX(0)',
+                                    transition: 'transform 200ms ease-in-out'
+                                }}
+                            ></div>
 
                             <div className="p-6">
                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
@@ -153,7 +163,8 @@ export default function Projects() {
                                             key={techIndex}
                                             className="px-2 py-1 border border-gray-700 text-gray-300 rounded-full text-xs"
                                             style={{
-                                                backgroundColor: hoveredProject === project.id ? 'rgba(79, 70, 229, 0.1)' : 'transparent'
+                                                backgroundColor: hoveredProject === project.id ? 'rgba(79, 70, 229, 0.1)' : 'transparent',
+                                                transition: 'background-color 200ms ease-in-out'
                                             }}
                                         >
                                             {tech}
@@ -169,13 +180,14 @@ export default function Projects() {
                                     {project.bullets.map((bullet, bulletIndex) => (
                                         <div
                                             key={bulletIndex}
-                                            className="flex items-start gap-2"
+                                            className="flex items-center gap-2"
                                             style={{
                                                 opacity: hoveredProject === project.id ? 1 : 0.7,
+                                                transition: 'opacity 200ms ease-in-out'
                                             }}
                                         >
-                                            <span className="text-cyan-500 mt-1 flex-shrink-0">•</span>
-                                            <p className="text-xs text-gray-400">{bullet}</p>
+                                            <span className="text-cyan-500 inline-block flex-shrink-0 leading-none">•</span>
+                                            <p className="text-xs text-gray-400 leading-tight">{bullet}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -189,8 +201,9 @@ export default function Projects() {
                     <button
                         onClick={navigateToArchive}
                         className="relative px-6 py-3 bg-gray-800 border border-gray-700 rounded-md
-                                  text-gray-300 font-medium overflow-hidden transition-colors duration-200
+                                  text-gray-300 font-medium overflow-hidden
                                   hover:text-white hover:border-indigo-500 hover:shadow-md hover:shadow-indigo-500/20 focus:outline-none"
+                        style={{ transition: 'all 200ms ease-in-out' }}
                     >
                         <span className="relative z-10 flex items-center gap-2">
                             View All Projects

@@ -17,14 +17,14 @@ export default function About() {
 
                 <div className="space-y-8 text-gray-400">
                     <p>
-                        I'm a third-year Computer Science student at{' '}
+                        I'm a third-year Computer Science student at the{' '}
                         <a
                             href="https://manoa.hawaii.edu"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-white hover:text-cyan-400 transition-colors duration-200"
                         >
-                            the University of Hawaiʻi at Mānoa
+                            University of Hawaiʻi at Mānoa
                         </a>
                         , with a strong interest in backend development and lower-level systems. I enjoy building things that work efficiently behind the scenes—whether it's a database-powered app, a network protocol project, or a tool that interacts closely with the operating system.
                     </p>
