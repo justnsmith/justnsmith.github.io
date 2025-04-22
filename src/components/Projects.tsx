@@ -8,6 +8,21 @@ export default function Projects() {
     const projects = [
         {
             id: 1,
+            title: "Custom Memory Allocator + Visualizer",
+            date: "April 2025",
+            tech: ["C", "Memory Management", "Web Assembly"],
+            description: "A custom memory allocator designed to replace standard memory management functions (malloc, free, realloc). It includes a visualizer to analyze memory fragmentation, allocation strategies, and overall memory usage.",
+            bullets: [
+                "Engineered a custom memory allocator to handle memory allocation and deallocation, replacing standard functions like malloc, free, and realloc",
+                "Developed an interactive visualizer to demonstrate memory fragmentation and visualize various allocation strategies in real time",
+                "Created a user-friendly interface for easy monitoring of memory usage and performance",
+                "Optimized memory utilization and system performance through advanced data structures and algorithms",
+                "Conducted rigorous testing to ensure the reliability, correctness, and stability of the allocator"
+            ],
+            url: "/projects/custom-memory-allocator"
+        },
+        {
+            id: 2,
             title: "Study Buddy",
             date: "December 2024",
             tech: ["React", "PostgreSQL", "Vercel"],
@@ -22,7 +37,7 @@ export default function Projects() {
             githubUrl: "https://thesoftwaredevelopers.github.io"
         },
         {
-            id: 2,
+            id: 3,
             title: "Polynesian Navigation Route Planner",
             date: "November 2024",
             tech: ["Java", "Performance Optimization"],
@@ -35,21 +50,6 @@ export default function Projects() {
                 "Developed a detailed user guide for application usage and data interpretation"
             ],
             githubUrl: "https://github.com/justnsmith/ics311-assignment5"
-        },
-        {
-            id: 3,
-            title: "Data Compression and Encryption",
-            date: "September 2024",
-            tech: ["Java", "Secure Data Handling"],
-            description: "Secure data handling solution with compression and encryption techniques for efficient and safe data transfer.",
-            bullets: [
-                "Collaborated on implementing effective compression and encryption techniques for secure data handling",
-                "Developed Run-Length Encoding for data compression with O(n) complexity",
-                "Applied FFT-based lossy compression to reduce data size, optimized to O(n log n)",
-                "Designed and implemented RSA encryption and decryption using modular exponentiation",
-                "Created detailed documentation outlining functionalities and algorithms"
-            ],
-            githubUrl: "https://github.com/justnsmith/ics311-assignment7"
         },
         {
             id: 4,
@@ -93,6 +93,10 @@ export default function Projects() {
         window.location.href = '/projects-archive';
     };
 
+    const navigateToProject = (url: string) => {
+        window.location.href = url;
+    };
+
     const navigateToGitHub = (url: string) => {
         window.open(url, '_blank');
     };
@@ -115,8 +119,7 @@ export default function Projects() {
                 </div>
 
                 <p className={`text-gray-300 text-center mb-10 max-w-2xl mx-auto transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                    Here are some of my recent projects that showcase my technical skills and problem-solving abilities.
-                    Click on any project to view its GitHub repository.
+                    Click on any project to view more details and access its GitHub repository.
                 </p>
 
                 <div className="space-y-6">
@@ -137,7 +140,7 @@ export default function Projects() {
                             }}
                             onMouseEnter={() => setHoveredProject(project.id)}
                             onMouseLeave={() => setHoveredProject(null)}
-                            onClick={() => navigateToGitHub(project.githubUrl)}
+                            onClick={() => project.url ? navigateToProject(project.url ?? '') : navigateToGitHub(project.githubUrl ?? '')}
                         >
                             <div
                                 className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 transform origin-left"
