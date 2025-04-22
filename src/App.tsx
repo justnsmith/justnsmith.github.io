@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import TechStack from "./components/TechStack";
@@ -85,9 +85,8 @@ function MainLayout({
 
                     <div
                         ref={rightScrollRef}
-                        className={`w-1/2 h-screen overflow-y-auto z-10 space-y-16 pb-24 ${
-                            isContactModalOpen ? "hidden" : "block"
-                        }`}
+                        className={`w-1/2 h-screen overflow-y-auto z-10 space-y-16 pb-24 ${isContactModalOpen ? "hidden" : "block"
+                            }`}
                     >
                         <About />
                         <TechStack />
@@ -159,8 +158,8 @@ export default function App() {
                         />
                     }
                 />
-                <Route path="/projects-archive" element={<ProjectsArchive />} />
-                <Route path="/projects/custom-memory-allocator" element={<CustomMemoryAllocator />} />
+                <Route path="projects-archive" element={<ProjectsArchive />} />
+                <Route path="projects/custom-memory-allocator" element={<CustomMemoryAllocator />} />
             </Routes>
         </Router>
     );

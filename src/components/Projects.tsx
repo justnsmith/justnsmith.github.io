@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Projects() {
+    const navigate = useNavigate();
     const [hoveredProject, setHoveredProject] = useState<number | null>(null);
     const [isInView, setIsInView] = useState<boolean>(false);
     const sectionRef = useRef<HTMLDivElement>(null);
@@ -19,7 +21,7 @@ export default function Projects() {
                 "Optimized memory utilization and system performance through advanced data structures and algorithms",
                 "Conducted rigorous testing to ensure the reliability, correctness, and stability of the allocator"
             ],
-            url: "/projects/custom-memory-allocator"
+            url: "projects/custom-memory-allocator"
         },
         {
             id: 2,
@@ -90,11 +92,11 @@ export default function Projects() {
     }, []);
 
     const navigateToArchive = () => {
-        window.location.href = '/projects-archive';
+        navigate('projects-archive');
     };
 
     const navigateToProject = (url: string) => {
-        window.location.href = url;
+        navigate(url);
     };
 
     const navigateToGitHub = (url: string) => {
