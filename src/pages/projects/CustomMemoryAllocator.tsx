@@ -7,6 +7,8 @@ export default function EnhancedMemoryAllocator() {
     const HEADER_SIZE = 24;           // Header size for each block
     const MIN_BLOCK_SIZE = 48;        // Minimum size for a split block to be viable
     const INITIAL_ADDRESS = 1000;     // Start address for the heap
+    const MIN_ALLOC_SIZE = 16;        // Minimum allocation size
+    const MAX_ALLOC_SIZE = 512;       // Maximum allocation size
 
     const [blocks, setBlocks] = useState<Array<{
         id: number;                 // Unique identifier for the block
@@ -23,6 +25,7 @@ export default function EnhancedMemoryAllocator() {
     }>>([]);
 
     const [allocSize, setAllocSize] = useState(64);
+    const [allocSizeInput, setAllocSizeInput] = useState("64"); // Separate state for input field
     const [animatingBlocks, setAnimatingBlocks] = useState<number[]>([]);
     const [isCoalescing, setIsCoalescing] = useState(false);
     const [coalescingSteps, setCoalescingSteps] = useState<Array<{
@@ -81,8 +84,7 @@ export default function EnhancedMemoryAllocator() {
 
         setBlockOperationsDisabled(true);
 
-        // Find a free block based on selected strategy
-        let fittingFreeBlock;
+        // Find all free blocks that are large enough
         const freeBlocks = blocks.filter(block => block.free && block.dataSize >= allocSize);
 
         if (freeBlocks.length === 0) {
@@ -96,23 +98,26 @@ export default function EnhancedMemoryAllocator() {
         }
 
         // Apply selected allocation strategy
+        let fittingFreeBlock;
         switch (allocStrategy) {
             case "best-fit":
                 // Find the smallest block that fits the request
                 fittingFreeBlock = freeBlocks.reduce((best, current) =>
-                    (best.dataSize <= current.dataSize) ? best : current
+                    (current.dataSize < best.dataSize) ? current : best
                 );
                 break;
             case "worst-fit":
                 // Find the largest block available
                 fittingFreeBlock = freeBlocks.reduce((worst, current) =>
-                    (worst.dataSize >= current.dataSize) ? worst : current
+                    (current.dataSize > worst.dataSize) ? current : worst
                 );
                 break;
             case "first-fit":
             default:
-                // Find the first block that fits
-                fittingFreeBlock = freeBlocks[0];
+                // Sort blocks by address to ensure we're selecting blocks in order
+                // This makes it truly "first fit" in terms of memory layout
+                const sortedByAddress = [...freeBlocks].sort((a, b) => a.address - b.address);
+                fittingFreeBlock = sortedByAddress[0];
                 break;
         }
 
@@ -180,42 +185,46 @@ export default function EnhancedMemoryAllocator() {
         // Create new address for second block
         const secondBlockAddress = blockToSplit.address + firstBlockTotalSize;
 
+        // Generate a truly new ID to avoid any overlap or confusion
+        const newBlockId = Math.max(...blocks.map(b => b.id)) + 1;
+
         // Create split blocks
-        const updatedBlocks = blocks.map(block => {
-            if (block.id === blockToSplit.id) {
-                // First part becomes the allocated block
-                return {
-                    ...block,
-                    requestedSize: requestedSize,
-                    dataSize: firstBlockDataSize,
-                    totalSize: firstBlockTotalSize,
-                    free: false,
-                    next: secondBlockAddress,
-                    splitting: true
-                };
-            }
-            return block;
-        });
+        const updatedBlocks = [...blocks]; // Create a new array to avoid direct modifications
+        const blockIndex = updatedBlocks.findIndex(block => block.id === blockToSplit.id);
 
-        // Add the second (free) block
-        const secondBlock = {
-            id: blocks.length + 1,
-            address: secondBlockAddress,
-            requestedSize: 0,
-            dataSize: secondBlockDataSize,
-            headerSize: HEADER_SIZE,
-            totalSize: secondBlockTotalSize,
-            free: true,
-            next: blockToSplit.next,
-            splitting: true
-        };
+        if (blockIndex !== -1) {
+            // Update the original block
+            updatedBlocks[blockIndex] = {
+                ...updatedBlocks[blockIndex],
+                requestedSize: requestedSize,
+                dataSize: firstBlockDataSize,
+                totalSize: firstBlockTotalSize,
+                free: false,
+                next: secondBlockAddress,
+                splitting: true
+            };
 
-        updatedBlocks.push(secondBlock);
+            // Create the second block with a unique ID
+            const secondBlock = {
+                id: newBlockId, // Ensure unique ID
+                address: secondBlockAddress,
+                requestedSize: 0,
+                dataSize: secondBlockDataSize,
+                headerSize: HEADER_SIZE,
+                totalSize: secondBlockTotalSize,
+                free: true,
+                next: blockToSplit.next,
+                splitting: true
+            };
+
+            // Insert the new block right after the original block
+            updatedBlocks.splice(blockIndex + 1, 0, secondBlock);
+        }
 
         // Update blocks and animate
         setBlocks(updatedBlocks);
         setStatusMessage("Block split completed");
-        setAnimatingBlocks([blockToSplit.id, secondBlock.id]);
+        setAnimatingBlocks([blockToSplit.id, newBlockId]);
 
         setTimeout(() => {
             const finalBlocks = updatedBlocks.map(block => ({
@@ -228,12 +237,21 @@ export default function EnhancedMemoryAllocator() {
         }, 1000);
     };
 
+    // Let's also fix the handleFreeBlock function to ensure we're only operating on the specified block
     const handleFreeBlock = (id: number) => {
         if (blockOperationsDisabled || isCoalescing) return;
 
         setBlockOperationsDisabled(true);
 
-        // First mark the block as free
+        // Find the specific block we want to free
+        const blockToFree = blocks.find(block => block.id === id);
+
+        if (!blockToFree) {
+            setBlockOperationsDisabled(false);
+            return;
+        }
+
+        // First mark ONLY this block as free
         const updatedBlocks = blocks.map(block =>
             block.id === id ? { ...block, free: true, requestedSize: 0 } : block
         );
@@ -244,9 +262,8 @@ export default function EnhancedMemoryAllocator() {
         setStatusMessage("Freeing block");
 
         // Check if coalescing is needed
-        const freedBlock = updatedBlocks.find(block => block.id === id);
-        const nextBlock = freedBlock ? updatedBlocks.find(block => block.address === freedBlock.next) : undefined;
-        const prevBlock = freedBlock ? updatedBlocks.find(block => block.next === freedBlock.address) : undefined;
+        const nextBlock = updatedBlocks.find(block => block.address === blockToFree.next);
+        const prevBlock = updatedBlocks.find(block => block.next === blockToFree.address);
 
         const canCoalesce = (nextBlock && nextBlock.free) || (prevBlock && prevBlock.free);
 
@@ -538,12 +555,59 @@ export default function EnhancedMemoryAllocator() {
         return blocks.filter(block => !block.free && !block.markedForRemoval).length;
     };
 
+    // Handle slider allocation size changes
+    const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(e.target.value);
+        setAllocSize(value);
+        setAllocSizeInput(value.toString());
+    };
+
     // Handle manual allocation size input
     const handleAllocSizeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = parseInt(e.target.value);
-        if (!isNaN(value) && value >= 16 && value <= 512) {
-            setAllocSize(value);
+        const inputValue = e.target.value;
+
+        // Allow empty input so users can clear the field
+        if (inputValue === '') {
+            setAllocSizeInput('');
+            return;
         }
+
+        // Only allow numeric input
+        if (!/^\d+$/.test(inputValue)) {
+            return;
+        }
+
+        setAllocSizeInput(inputValue);
+
+        // Convert to number and update actual size if in valid range
+        const value = parseInt(inputValue);
+        if (!isNaN(value)) {
+            // Apply constraints when user finishes typing
+            const constrainedValue = Math.min(Math.max(value, MIN_ALLOC_SIZE), MAX_ALLOC_SIZE);
+            setAllocSize(constrainedValue);
+        }
+    };
+
+    // Handle input blur to ensure constraints are applied
+    const handleInputBlur = () => {
+        if (allocSizeInput === '') {
+            // If field is empty, default to minimum
+            setAllocSize(MIN_ALLOC_SIZE);
+            setAllocSizeInput(MIN_ALLOC_SIZE.toString());
+            return;
+        }
+
+        const value = parseInt(allocSizeInput);
+        if (isNaN(value)) {
+            // Reset to previous valid value if not a number
+            setAllocSizeInput(allocSize.toString());
+            return;
+        }
+
+        // Apply constraints
+        const constrainedValue = Math.min(Math.max(value, MIN_ALLOC_SIZE), MAX_ALLOC_SIZE);
+        setAllocSize(constrainedValue);
+        setAllocSizeInput(constrainedValue.toString());
     };
 
     const navigate = useNavigate();
@@ -583,23 +647,22 @@ export default function EnhancedMemoryAllocator() {
                             <input
                                 id="allocSize"
                                 type="range"
-                                min="16"
-                                max="512"
+                                min={MIN_ALLOC_SIZE}
+                                max={MAX_ALLOC_SIZE}
                                 value={allocSize}
-                                onChange={(e) => setAllocSize(parseInt(e.target.value))}
+                                onChange={handleSliderChange}
                                 className="flex-1"
                                 disabled={blockOperationsDisabled}
                             />
                             <div className="w-20 bg-gray-700 rounded flex overflow-hidden">
                                 <input
-                                    type="number"
-                                    min="16"
-                                    max="512"
-                                    value={allocSize}
+                                    type="text"
+                                    value={allocSizeInput}
                                     onChange={handleAllocSizeInput}
+                                    onBlur={handleInputBlur}
                                     className="w-full bg-gray-700 px-2 py-1 text-center font-mono focus:outline-none focus:ring-1 focus:ring-blue-500"
                                     disabled={blockOperationsDisabled}
-                                    style={{ appearance: "textfield" }} /* Removes arrows in most browsers */
+                                    placeholder={MIN_ALLOC_SIZE.toString()}
                                 />
                                 <span className="bg-gray-600 px-1 flex items-center">B</span>
                             </div>
@@ -688,6 +751,7 @@ export default function EnhancedMemoryAllocator() {
                     <p className="font-bold">{statusMessage}</p>
                 </div>
             )}
+
 
             {/* Memory Blocks */}
             <div className="bg-gray-800 p-4 rounded-lg shadow-lg overflow-x-auto">
