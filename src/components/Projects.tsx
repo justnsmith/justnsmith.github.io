@@ -12,7 +12,7 @@ export default function Projects() {
             id: 1,
             title: "Custom Memory Allocator + Visualizer",
             date: "April 2025",
-            tech: ["C", "Memory Management", "Web Assembly"],
+            tech: ["C", "Typescript", "TailwindCSS"],
             description: "A custom memory allocator designed to replace standard memory management functions (malloc, free, realloc). It includes a visualizer to analyze memory fragmentation, allocation strategies, and overall memory usage.",
             bullets: [
                 "Engineered a custom memory allocator to handle memory allocation and deallocation, replacing standard functions like malloc, free, and realloc",

@@ -385,13 +385,13 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                         className="w-8 h-8 text-gray-500 transition-all duration-300 transform group-hover:text-white group-hover:scale-125"
                     />
                 </a>
-                <a href="https://linkedin.com/in/jstinsmith" target="_blank" className="bg-transparent group">
+                <a href="https://linkedin.com/in/justnsmith" target="_blank" className="bg-transparent group">
                     <FontAwesomeIcon
                         icon={faLinkedin}
                         className="w-8 h-8 text-gray-500 transition-all duration-300 transform group-hover:text-white group-hover:scale-125"
                     />
                 </a>
-                <a href="mailto:jstinwsmith@gmail.com" className="bg-transparent group">
+                <a href="mailto:justnwsmith@gmail.com" className="bg-transparent group">
                     <FontAwesomeIcon
                         icon={faGoogle}
                         className="w-8 h-8 text-gray-500 transition-all duration-300 transform group-hover:text-white group-hover:scale-125"
