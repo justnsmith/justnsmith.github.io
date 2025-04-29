@@ -294,142 +294,145 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
     const scaleFactor = calculatedScaleFactor();
 
     return (
-        <section
-            id="hero-section"
             className={`relative flex flex-col items-center px-6 sm:px-12 pt-20 bg-transparent text-white text-center ${
-                contentHeight > windowHeight ? 'h-auto pb-16' : 'min-h-screen'
-            }`}
-            style={{
-                transform: `scale(${scaleFactor})`,
-                transformOrigin: 'top center',
-                marginBottom: scaleFactor < 1 ? `${(1 - scaleFactor) * -100}vh` : '0'
-            }}
-        >
-            {/* Burger Menu - Only visible on mobile/tablet view */}
-            {isMobileView && (
-                <div className="fixed top-4 right-6 z-50 menu-container">
-                    <button
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        aria-label="Toggle menu"
-                        className="text-gray-300 hover:text-white transition-colors duration-300"
-                    >
-                        <FontAwesomeIcon
-                            icon={faBars}
-                            className={`w-6 h-6 transition-transform duration-300 ${isMenuOpen ? 'rotate-90' : ''}`}
-                        />
-                    </button>
+        <>
+            <section
+                id="hero-section"
+                className={`relative flex flex-col items-center px-6 sm:px-12 pt-20 bg-transparent text-white text-center ${
+                    contentHeight > windowHeight ? 'h-auto pb-16' : 'min-h-screen'
+                }`}
+                style={{
+                    transform: `scale(${scaleFactor})`,
+                    transformOrigin: 'top center',
+                    marginBottom: scaleFactor < 1 ? `${(1 - scaleFactor) * -100}vh` : '0'
+                }}
+            >
+                {/* Burger Menu - Only visible on mobile/tablet view */}
+                {isMobileView && (
+                    <div className="fixed top-4 right-6 z-50 menu-container">
+                        <button
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            aria-label="Toggle menu"
+                            className="text-gray-300 hover:text-white transition-colors duration-300"
+                        >
+                            <FontAwesomeIcon
+                                icon={faBars}
+                                className={`w-6 h-6 transition-transform duration-300 ${isMenuOpen ? 'rotate-90' : ''}`}
+                            />
+                        </button>
 
-                    {/* Dropdown Menu with Animation */}
-                    <div
-                        className={`absolute right-0 mt-2 w-48 bg-gray-800 border border-indigo-500 rounded-md shadow-lg shadow-indigo-500/20 overflow-hidden transition-all duration-300 origin-top-right ${isMenuOpen
-                            ? 'opacity-100 scale-100 translate-y-0'
-                            : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
-                            }`}
-                    >
-                        <div className="py-2">
-                            {sectionIds.map((id, index) => (
-                                <a
-                                    key={id}
-                                    href={`#${id}`}
-                                    onClick={(e) => handleNavigationClick(id, e)}
-                                    className={`block px-4 py-2 text-sm transition-all duration-300 hover:bg-gray-700 ${activeSection === id
-                                        ? "text-indigo-400 border-l-2 border-indigo-500 pl-3"
-                                        : "text-gray-300 hover:text-white"
-                                        }`}
-                                    style={{
-                                        transitionDelay: isMenuOpen ? `${index * 50}ms` : '0ms'
-                                    }}
-                                >
-                                    {id.charAt(0).toUpperCase() + id.slice(1)}
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Profile Image */}
-            <img
-                src="/profile.jpeg"
-                alt="Profile"
-                className="w-36 h-36 mb-6 rounded-full border-2 border-indigo-500 shadow-md"
-            />
-
-            {/* Name */}
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">Justin Smith</h1>
-
-            {/* Animated Role */}
-            <p className="text-indigo-400 text-xl md:text-2xl font-mono mb-6 h-12">
-                {displayText}
-                <span className="animate-pulse">|</span>
-            </p>
-
-            {/* Description */}
-            <p className="text-gray-400 max-w-lg mb-6">
-                I build efficient, scalable systems and am interested in low-level programming and optimizing performance.
-            </p>
-
-            {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <a
-                    href="/resume.pdf"
-                    target="_blank"
-                    className="bg-indigo-600 text-gray-300 hover:bg-indigo-700 hover:text-white font-semibold py-2 px-6 rounded-lg transition-all hover:shadow-lg hover:shadow-indigo-600/20 transform hover:-translate-y-0.5"
-                >
-                    View Resume
-                </a>
-                <button
-                    onClick={handleContactClick}
-                    className={`border-2 border-indigo-500 text-gray-300 hover:bg-indigo-500 hover:text-white font-semibold py-2 px-6 rounded-lg transition-all hover:shadow-lg hover:shadow-indigo-500/20 transform hover:-translate-y-0.5 ${contactAnimation ? `animate-${contactAnimation}` : ""}`}
-                >
-                    Contact Me
-                </button>
-            </div>
-
-            {/* Selection Indicator - Only visible on desktop/larger screens */}
-            {!isMobileView && (
-                <div className="flex flex-col gap-8 mb-8">
-                    {sectionIds.map((id) => (
-                        <a
-                            key={id}
-                            href={`#${id}`}
-                            onClick={(e) => handleNavigationClick(id, e)}
-                            className={`relative text-sm font-medium transition-all duration-300 hover:text-white group ${activeSection === id
-                                ? "text-white scale-110"
-                                : "text-gray-400"
+                        {/* Dropdown Menu with Animation */}
+                        <div
+                            className={`absolute right-0 mt-2 w-48 bg-gray-800 border border-indigo-500 rounded-md shadow-lg shadow-indigo-500/20 overflow-hidden transition-all duration-300 origin-top-right ${isMenuOpen
+                                ? 'opacity-100 scale-100 translate-y-0'
+                                : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
                                 }`}
                         >
-                            {id.charAt(0).toUpperCase() + id.slice(1)}
-                            <span className={`absolute left-0 bottom-0 w-full h-0.5 bg-indigo-500 transform origin-left transition-transform duration-300 ${activeSection === id ? 'scale-x-100' : 'scale-x-0'
-                                } group-hover:scale-x-100`}></span>
-                        </a>
-                    ))}
+                            <div className="py-2">
+                                {sectionIds.map((id, index) => (
+                                    <a
+                                        key={id}
+                                        href={`#${id}`}
+                                        onClick={(e) => handleNavigationClick(id, e)}
+                                        className={`block px-4 py-2 text-sm transition-all duration-300 hover:bg-gray-700 ${activeSection === id
+                                            ? "text-indigo-400 border-l-2 border-indigo-500 pl-3"
+                                            : "text-gray-300 hover:text-white"
+                                            }`}
+                                        style={{
+                                            transitionDelay: isMenuOpen ? `${index * 50}ms` : '0ms'
+                                        }}
+                                    >
+                                        {id.charAt(0).toUpperCase() + id.slice(1)}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Profile Image */}
+                <img
+                    src="/profile.jpeg"
+                    alt="Profile"
+                    className="w-36 h-36 mb-6 rounded-full border-2 border-indigo-500 shadow-md"
+                />
+
+                {/* Name */}
+                <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">Justin Smith</h1>
+
+                {/* Animated Role */}
+                <p className="text-indigo-400 text-xl md:text-2xl font-mono mb-6 h-12">
+                    {displayText}
+                    <span className="animate-pulse">|</span>
+                </p>
+
+                {/* Description */}
+                <p className="text-gray-400 max-w-lg mb-6">
+                    I build efficient, scalable systems and am interested in low-level programming and optimizing performance.
+                </p>
+
+                {/* Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                    <a
+                        href="/resume.pdf"
+                        target="_blank"
+                        className="bg-indigo-600 text-gray-300 hover:bg-indigo-700 hover:text-white font-semibold py-2 px-6 rounded-lg transition-all hover:shadow-lg hover:shadow-indigo-600/20 transform hover:-translate-y-0.5"
+                    >
+                        View Resume
+                    </a>
+                    <button
+                        onClick={handleContactClick}
+                        className={`border-2 border-indigo-500 text-gray-300 hover:bg-indigo-500 hover:text-white font-semibold py-2 px-6 rounded-lg transition-all hover:shadow-lg hover:shadow-indigo-500/20 transform hover:-translate-y-0.5 ${contactAnimation ? `animate-${contactAnimation}` : ""}`}
+                    >
+                        Contact Me
+                    </button>
                 </div>
-            )}
 
-            {/* Social Icons - Dynamic footer instead of fixed when burger menu is present */}
-            <div className={`${isMobileView ? 'w-full flex justify-center gap-6 py-4 bg-transparent mt-auto' : 'w-full flex justify-center gap-6 py-4 bg-transparent mt-auto'}`}>
-                <a href="https://github.com/justnsmith" target="_blank" className="bg-transparent group">
-                    <FontAwesomeIcon
-                        icon={faGithub}
-                        className="w-8 h-8 text-gray-500 transition-all duration-300 transform group-hover:text-white group-hover:scale-125"
-                    />
-                </a>
-                <a href="https://linkedin.com/in/justnsmith" target="_blank" className="bg-transparent group">
-                    <FontAwesomeIcon
-                        icon={faLinkedin}
-                        className="w-8 h-8 text-gray-500 transition-all duration-300 transform group-hover:text-white group-hover:scale-125"
-                    />
-                </a>
-                <a href="mailto:justnwsmith@gmail.com" className="bg-transparent group">
-                    <FontAwesomeIcon
-                        icon={faGoogle}
-                        className="w-8 h-8 text-gray-500 transition-all duration-300 transform group-hover:text-white group-hover:scale-125"
-                    />
-                </a>
-            </div>
+                {/* Selection Indicator - Only visible on desktop/larger screens */}
+                {!isMobileView && (
+                    <div className="flex flex-col gap-8 mb-8">
+                        {sectionIds.map((id) => (
+                            <a
+                                key={id}
+                                href={`#${id}`}
+                                onClick={(e) => handleNavigationClick(id, e)}
+                                className={`relative text-sm font-medium transition-all duration-300 hover:text-white group ${activeSection === id
+                                    ? "text-white scale-110"
+                                    : "text-gray-400"
+                                    }`}
+                            >
+                                {id.charAt(0).toUpperCase() + id.slice(1)}
+                                <span className={`absolute left-0 bottom-0 w-full h-0.5 bg-indigo-500 transform origin-left transition-transform duration-300 ${activeSection === id ? 'scale-x-100' : 'scale-x-0'
+                                    } group-hover:scale-x-100`}></span>
+                            </a>
+                        ))}
+                    </div>
+                )}
 
-            {/* Contact Form Modal */}
+                {/* Social Icons - Dynamic footer instead of fixed when burger menu is present */}
+                <div className={`${isMobileView ? 'w-full flex justify-center gap-6 py-4 bg-transparent mt-auto' : 'w-full flex justify-center gap-6 py-4 bg-transparent mt-auto'}`}>
+                    <a href="https://github.com/justnsmith" target="_blank" className="bg-transparent group">
+                        <FontAwesomeIcon
+                            icon={faGithub}
+                            className="w-8 h-8 text-gray-500 transition-all duration-300 transform group-hover:text-white group-hover:scale-125"
+                        />
+                    </a>
+                    <a href="https://linkedin.com/in/justnsmith" target="_blank" className="bg-transparent group">
+                        <FontAwesomeIcon
+                            icon={faLinkedin}
+                            className="w-8 h-8 text-gray-500 transition-all duration-300 transform group-hover:text-white group-hover:scale-125"
+                        />
+                    </a>
+                    <a href="mailto:justnwsmith@gmail.com" className="bg-transparent group">
+                        <FontAwesomeIcon
+                            icon={faGoogle}
+                            className="w-8 h-8 text-gray-500 transition-all duration-300 transform group-hover:text-white group-hover:scale-125"
+                        />
+                    </a>
+                </div>
+            </section>
+
+            {/* Contact Form Modal - Moved outside the scaled section */}
             {isContactModalOpen && (
                 <div
                     id="contact-modal-backdrop"
@@ -598,6 +601,6 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                     animation: pulse 0.3s ease-in-out;
                 }
             `}</style>
-        </section>
+        </>
     );
 }
