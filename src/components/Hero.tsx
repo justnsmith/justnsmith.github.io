@@ -20,6 +20,8 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMobileView, setIsMobileView] = useState(false);
     const [contactAnimation, setContactAnimation] = useState("");
+    const [contentHeight, setContentHeight] = useState(0);
+    const [windowHeight, setWindowHeight] = useState(0);
 
     // Form state
     const [formData, setFormData] = useState({
@@ -148,20 +150,27 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
         }
     };
 
-    // Check window size and update mobile view state
+    // Check window size and update content information
     useEffect(() => {
-        const checkMobileView = () => {
+        const updateSizes = () => {
             setIsMobileView(window.innerWidth < 1024);
+            setWindowHeight(window.innerHeight);
+
+            // Get the actual height of the content
+            const heroSection = document.getElementById('hero-section');
+            if (heroSection) {
+                setContentHeight(heroSection.scrollHeight);
+            }
         };
 
         // Initial check
-        checkMobileView();
+        updateSizes();
 
         // Add event listener for window resize
-        window.addEventListener('resize', checkMobileView);
+        window.addEventListener('resize', updateSizes);
 
         // Cleanup
-        return () => window.removeEventListener('resize', checkMobileView);
+        return () => window.removeEventListener('resize', updateSizes);
     }, []);
 
     // Close menu when switching from mobile to desktop
@@ -273,8 +282,29 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
         }
     };
 
+    // Determine the scaling factor needed
+    const calculatedScaleFactor = () => {
+        if (contentHeight > windowHeight && windowHeight > 0) {
+            // Apply scale only if content is taller than viewport and not on mobile
+            return isMobileView ? 1 : Math.min(0.95, windowHeight / contentHeight);
+        }
+        return 1;
+    };
+
+    const scaleFactor = calculatedScaleFactor();
+
     return (
-        <section className="relative min-h-screen flex flex-col items-center px-6 sm:px-12 pt-20 bg-transparent text-white text-center">
+        <section
+            id="hero-section"
+            className={`relative flex flex-col items-center px-6 sm:px-12 pt-20 bg-transparent text-white text-center ${
+                contentHeight > windowHeight ? 'h-auto pb-16' : 'min-h-screen'
+            }`}
+            style={{
+                transform: `scale(${scaleFactor})`,
+                transformOrigin: 'top center',
+                marginBottom: scaleFactor < 1 ? `${(1 - scaleFactor) * -100}vh` : '0'
+            }}
+        >
             {/* Burger Menu - Only visible on mobile/tablet view */}
             {isMobileView && (
                 <div className="fixed top-4 right-6 z-50 menu-container">
@@ -378,7 +408,7 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
             )}
 
             {/* Social Icons - Dynamic footer instead of fixed when burger menu is present */}
-            <div className={`${isMobileView ? 'w-full flex justify-center gap-6 py-4 bg-transparent mt-auto' : 'fixed bottom-0 w-full flex justify-center gap-6 py-4 bg-transparent z-30'}`}>
+            <div className={`${isMobileView ? 'w-full flex justify-center gap-6 py-4 bg-transparent mt-auto' : 'w-full flex justify-center gap-6 py-4 bg-transparent mt-auto'}`}>
                 <a href="https://github.com/justnsmith" target="_blank" className="bg-transparent group">
                     <FontAwesomeIcon
                         icon={faGithub}

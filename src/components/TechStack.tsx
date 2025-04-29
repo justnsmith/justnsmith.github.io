@@ -3,36 +3,36 @@ import { useState, useEffect } from "react";
 import {
     SiC,
     SiCplusplus,
+    SiGo,
     SiPython,
     SiTypescript,
     SiReact,
-    SiHtml5,
-    SiCss3,
     SiTailwindcss,
     SiGit,
     SiPostgresql,
     SiNodedotjs,
+    SiDocker,
 } from "react-icons/si";
 
 const tech = [
-    { name: "C", icon: SiC, color: "#A8B9CC", proficiency: 85 },
-    { name: "C++", icon: SiCplusplus, color: "#00599C", proficiency: 95 },
-    { name: "Python", icon: SiPython, color: "#3776ab", proficiency: 90 },
+    { name: "C", icon: SiC, color: "#A8B9CC", proficiency: 65 },
+    { name: "C++", icon: SiCplusplus, color: "#00599C", proficiency: 70 },
+    { name: "Go", icon: SiGo, color: "#00ADD8", proficiency: 68 },
+    { name: "Python", icon: SiPython, color: "#3776ab", proficiency: 72 },
     {
         name: "Java",
         icon: "java-logo",
         image: "/java-logo.svg",
         color: "#f80000",
-        proficiency: 88
+        proficiency: 67
     },
-    { name: "TypeScript", icon: SiTypescript, color: "#3178c6", proficiency: 82 },
-    { name: "React", icon: SiReact, color: "#61dafb", proficiency: 78 },
-    { name: "HTML5", icon: SiHtml5, color: "#e34f26", proficiency: 75 },
-    { name: "CSS3", icon: SiCss3, color: "#1572b6", proficiency: 75 },
-    { name: "Tailwind CSS", icon: SiTailwindcss, color: "#38bdf8", proficiency: 76 },
-    { name: "Git", icon: SiGit, color: "#f1502f", proficiency: 80 },
-    { name: "PostgreSQL", icon: SiPostgresql, color: "#336791", proficiency: 74 },
-    { name: "Node.js", icon: SiNodedotjs, color: "#83cd29", proficiency: 75 },
+    { name: "TypeScript", icon: SiTypescript, color: "#3178c6", proficiency: 62 },
+    { name: "React", icon: SiReact, color: "#61dafb", proficiency: 58 },
+    { name: "Tailwind CSS", icon: SiTailwindcss, color: "#38bdf8", proficiency: 60 },
+    { name: "Git", icon: SiGit, color: "#f1502f", proficiency: 65 },
+    { name: "PostgreSQL", icon: SiPostgresql, color: "#336791", proficiency: 55 },
+    { name: "Node.js", icon: SiNodedotjs, color: "#83cd29", proficiency: 60 },
+    { name: "Docker", icon: SiDocker, color: "#2496ED", proficiency: 63 },
 ];
 
 export default function TechStack() {
@@ -188,7 +188,7 @@ export default function TechStack() {
                     <div className="bg-gray-900 bg-opacity-50 rounded-lg px-6 py-3 flex items-center gap-2 text-sm text-gray-400 border border-gray-800">
                         <span>Hover over technologies to see proficiency levels</span>
                         <div className="w-16 h-1.5 bg-gray-800 rounded-full overflow-hidden ml-2">
-                            <div className="h-full w-4/5 rounded-full bg-gradient-to-r from-cyan-400 to-indigo-500"></div>
+                            <div className="h-full w-3/5 rounded-full bg-gradient-to-r from-cyan-400 to-indigo-500"></div>
                         </div>
                     </div>
                 </div>

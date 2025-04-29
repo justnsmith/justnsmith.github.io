@@ -10,6 +10,21 @@ export default function Projects() {
     const projects = [
         {
             id: 1,
+            title: "Image Processing Service",
+            date: "April 2025",
+            tech: ["AWS S3", "Docker", "Go", "PostgreSQL", "Redis", "Typescript", "TailwindCSS"],
+            description: "A full-stack image processing application with advanced backend services for secure storage, efficient processing, and dependable data management.",
+            bullets: [
+                "Implemented secure user authentication with JWT token-based authentication, email verification, and password reset functionality",
+                "Designed scalable storage solution using S3 bucket integration, Redis caching, and PostgreSQL metadata management",
+                "Built backend image processing capabilities including resize, crop, and filter application using Go imaging libraries",
+                "Created a responsive React frontend with TypeScript and Tailwind CSS for a user-friendly interface",
+                "Developed complete API endpoints for user and image management with proper authentication and authorization"
+            ],
+            url: "https://image-processing-service-nk16.onrender.com"
+        },
+        {
+            id: 2,
             title: "Custom Memory Allocator + Visualizer",
             date: "April 2025",
             tech: ["C", "Typescript", "TailwindCSS"],
@@ -24,7 +39,7 @@ export default function Projects() {
             url: "projects/custom-memory-allocator"
         },
         {
-            id: 2,
+            id: 3,
             title: "Study Buddy",
             date: "December 2024",
             tech: ["React", "PostgreSQL", "Vercel"],
@@ -37,21 +52,6 @@ export default function Projects() {
                 "Collaborated on creating a calendar feature to help users manage their joined study sessions"
             ],
             githubUrl: "https://thesoftwaredevelopers.github.io"
-        },
-        {
-            id: 3,
-            title: "Polynesian Navigation Route Planner",
-            date: "November 2024",
-            tech: ["Java", "Performance Optimization"],
-            description: "A route planning system simulating resource distribution and tourism across the Polynesian Triangle.",
-            bullets: [
-                "Collaborated on a project simulating resource distribution and tourism across the Polynesian Triangle",
-                "Implemented graph algorithms, specifically Dijkstra's algorithm, to calculate the most efficient navigation routes",
-                "Optimized the app's performance for real-time route planning and data retrieval",
-                "Worked on improving the user interface to ensure a seamless experience for users",
-                "Developed a detailed user guide for application usage and data interpretation"
-            ],
-            githubUrl: "https://github.com/justnsmith/ics311-assignment5"
         },
         {
             id: 4,
@@ -96,7 +96,11 @@ export default function Projects() {
     };
 
     const navigateToProject = (url: string) => {
-        navigate(url);
+        if (url.startsWith('http')) {
+            window.open(url, '_blank');
+        } else {
+            navigate(url);
+        }
     };
 
     const navigateToGitHub = (url: string) => {

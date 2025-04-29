@@ -8,6 +8,14 @@ export default function ProjectsArchive() {
     const projects = [
         {
             year: 2025,
+            title: "Image Processing Service",
+            technologies: ["AWS S3", "Docker", "Go", "PostgreSQL", "Redis", "Typescript", "TailwindCSS"],
+            link: "https://github.com/justnsmith/image-processing-service",
+            isInternal: false,
+            madeFor: "Personal"
+        },
+        {
+            year: 2025,
             title: "Custom Memory Allocator + Visualizer",
             technologies: ["C", "Memory Management", "Web Assembly"],
             link: "projects/custom-memory-allocator",
