@@ -294,7 +294,6 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
     const scaleFactor = calculatedScaleFactor();
 
     return (
-            className={`relative flex flex-col items-center px-6 sm:px-12 pt-20 bg-transparent text-white text-center ${
         <>
             <section
                 id="hero-section"
