@@ -62,14 +62,14 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
     const handleContactClick = () => {
         setContactAnimation("pulse");
         setTimeout(() => {
-            setIsContactModalOpen(true); // Using the prop function to update parent state
+            setIsContactModalOpen(true);
             setContactAnimation("");
         }, 300);
     };
 
     // Close the modal
     const closeModal = () => {
-        setIsContactModalOpen(false); // Using the prop function to update parent state
+        setIsContactModalOpen(false);
     };
 
     // Handle form submission
@@ -190,7 +190,7 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
 
             // For the contact modal
             if (isContactModalOpen && target instanceof HTMLElement && target.id === "contact-modal-backdrop") {
-                setIsContactModalOpen(false); // Using the prop function to update parent state
+                setIsContactModalOpen(false);
             }
         };
 
@@ -261,7 +261,7 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
             },
             {
                 threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5],
-                rootMargin: "-10% 0px -70% 0px" // This gives priority to sections near the top of viewport
+                rootMargin: "-10% 0px -70% 0px"
             }
         );
 
@@ -285,7 +285,6 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
     // Determine the scaling factor needed
     const calculatedScaleFactor = () => {
         if (contentHeight > windowHeight && windowHeight > 0) {
-            // Apply scale only if content is taller than viewport and not on mobile
             return isMobileView ? 1 : Math.min(0.95, windowHeight / contentHeight);
         }
         return 1;
@@ -295,6 +294,51 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
 
     return (
         <>
+            {/* Fixed Burger Menu*/}
+            {isMobileView && (
+                <div className="fixed top-0 right-0 z-50 menu-container p-4 w-full flex justify-end bg-transparent">
+                    <button
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        aria-label="Toggle menu"
+                        className="text-gray-300 hover:text-white transition-colors duration-300"
+                    >
+                        <FontAwesomeIcon
+                            icon={isMenuOpen ? faTimes : faBars}
+                            className={`w-6 h-6 transition-transform duration-300 ${isMenuOpen ? 'rotate-90' : ''}`}
+                        />
+                    </button>
+
+                    {/* Dropdown Menu with Animation */}
+                    <div
+                        className={`absolute right-4 top-14 mt-2 w-48 bg-gray-800 border border-indigo-500 rounded-md shadow-lg shadow-indigo-500/20 overflow-hidden transition-all duration-300 origin-top-right ${
+                            isMenuOpen
+                                ? 'opacity-100 scale-100 translate-y-0'
+                                : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
+                        }`}
+                    >
+                        <div className="py-2">
+                            {sectionIds.map((id, index) => (
+                                <a
+                                    key={id}
+                                    href={`#${id}`}
+                                    onClick={(e) => handleNavigationClick(id, e)}
+                                    className={`block px-4 py-2 text-sm transition-all duration-300 hover:bg-gray-700 ${
+                                        activeSection === id
+                                            ? "text-indigo-400 border-l-2 border-indigo-500 pl-3"
+                                            : "text-gray-300 hover:text-white"
+                                    }`}
+                                    style={{
+                                        transitionDelay: isMenuOpen ? `${index * 50}ms` : '0ms'
+                                    }}
+                                >
+                                    {id.charAt(0).toUpperCase() + id.slice(1)}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <section
                 id="hero-section"
                 className={`relative flex flex-col items-center px-6 sm:px-12 pt-20 bg-transparent text-white text-center ${
@@ -303,52 +347,10 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                 style={{
                     transform: `scale(${scaleFactor})`,
                     transformOrigin: 'top center',
-                    marginBottom: scaleFactor < 1 ? `${(1 - scaleFactor) * -100}vh` : '0'
+                    marginBottom: scaleFactor < 1 ? `${(1 - scaleFactor) * -100}vh` : '0',
+                    paddingTop: isMobileView ? '64px' : '80px'
                 }}
             >
-                {/* Burger Menu - Only visible on mobile/tablet view */}
-                {isMobileView && (
-                    <div className="fixed top-4 right-6 z-50 menu-container">
-                        <button
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            aria-label="Toggle menu"
-                            className="text-gray-300 hover:text-white transition-colors duration-300"
-                        >
-                            <FontAwesomeIcon
-                                icon={faBars}
-                                className={`w-6 h-6 transition-transform duration-300 ${isMenuOpen ? 'rotate-90' : ''}`}
-                            />
-                        </button>
-
-                        {/* Dropdown Menu with Animation */}
-                        <div
-                            className={`absolute right-0 mt-2 w-48 bg-gray-800 border border-indigo-500 rounded-md shadow-lg shadow-indigo-500/20 overflow-hidden transition-all duration-300 origin-top-right ${isMenuOpen
-                                ? 'opacity-100 scale-100 translate-y-0'
-                                : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
-                                }`}
-                        >
-                            <div className="py-2">
-                                {sectionIds.map((id, index) => (
-                                    <a
-                                        key={id}
-                                        href={`#${id}`}
-                                        onClick={(e) => handleNavigationClick(id, e)}
-                                        className={`block px-4 py-2 text-sm transition-all duration-300 hover:bg-gray-700 ${activeSection === id
-                                            ? "text-indigo-400 border-l-2 border-indigo-500 pl-3"
-                                            : "text-gray-300 hover:text-white"
-                                            }`}
-                                        style={{
-                                            transitionDelay: isMenuOpen ? `${index * 50}ms` : '0ms'
-                                        }}
-                                    >
-                                        {id.charAt(0).toUpperCase() + id.slice(1)}
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                )}
-
                 {/* Profile Image */}
                 <img
                     src="/profile.jpeg"
@@ -387,7 +389,7 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                     </button>
                 </div>
 
-                {/* Selection Indicator - Only visible on desktop/larger screens */}
+                {/* Selection Indicator */}
                 {!isMobileView && (
                     <div className="flex flex-col gap-8 mb-8">
                         {sectionIds.map((id) => (
@@ -395,20 +397,22 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                                 key={id}
                                 href={`#${id}`}
                                 onClick={(e) => handleNavigationClick(id, e)}
-                                className={`relative text-sm font-medium transition-all duration-300 hover:text-white group ${activeSection === id
-                                    ? "text-white scale-110"
-                                    : "text-gray-400"
-                                    }`}
+                                className={`relative text-sm font-medium transition-all duration-300 hover:text-white group ${
+                                    activeSection === id
+                                        ? "text-white scale-110"
+                                        : "text-gray-400"
+                                }`}
                             >
                                 {id.charAt(0).toUpperCase() + id.slice(1)}
-                                <span className={`absolute left-0 bottom-0 w-full h-0.5 bg-indigo-500 transform origin-left transition-transform duration-300 ${activeSection === id ? 'scale-x-100' : 'scale-x-0'
-                                    } group-hover:scale-x-100`}></span>
+                                <span className={`absolute left-0 bottom-0 w-full h-0.5 bg-indigo-500 transform origin-left transition-transform duration-300 ${
+                                    activeSection === id ? 'scale-x-100' : 'scale-x-0'
+                                } group-hover:scale-x-100`}></span>
                             </a>
                         ))}
                     </div>
                 )}
 
-                {/* Social Icons - Dynamic footer instead of fixed when burger menu is present */}
+                {/* Social Icons */}
                 <div className={`${isMobileView ? 'w-full flex justify-center gap-6 py-4 bg-transparent mt-auto' : 'w-full flex justify-center gap-6 py-4 bg-transparent mt-auto'}`}>
                     <a href="https://github.com/justnsmith" target="_blank" className="bg-transparent group">
                         <FontAwesomeIcon
@@ -431,7 +435,7 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                 </div>
             </section>
 
-            {/* Contact Form Modal - Moved outside the scaled section */}
+            {/* Contact Form Modal */}
             {isContactModalOpen && (
                 <div
                     id="contact-modal-backdrop"
@@ -445,7 +449,7 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                             animation: "modalEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards"
                         }}
                     >
-                        {/* Modal Header with Exit Button Fixed to be a Perfect Circle */}
+                        {/* Modal Header */}
                         <div className="p-6 pb-2 flex justify-between items-center border-b border-gray-700">
                             <h2 className="text-2xl font-bold text-white">Contact Me</h2>
                             <button
@@ -457,7 +461,7 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                         </div>
 
                         <div className="p-6">
-                            {/* Form content with modifications */}
+                            {/* Form content */}
                             {formStatus.success ? (
                                 <div className="flex flex-col items-center justify-center py-6 animate-fadeIn">
                                     <div className="w-16 h-16 bg-green-500 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
@@ -471,10 +475,11 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                                     <div className="relative">
                                         <label
                                             htmlFor="name"
-                                            className={`absolute left-3 transition-all duration-200 ${focusedField === 'name' || formData.name
-                                                ? '-top-2 text-xs text-indigo-400 bg-gray-800 px-1 z-10'
-                                                : 'top-2 text-gray-400'
-                                                }`}
+                                            className={`absolute left-3 transition-all duration-200 ${
+                                                focusedField === 'name' || formData.name
+                                                    ? '-top-2 text-xs text-indigo-400 bg-gray-800 px-1 z-10'
+                                                    : 'top-2 text-gray-400'
+                                            }`}
                                         >
                                             Name
                                         </label>
@@ -494,10 +499,11 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                                     <div className="relative">
                                         <label
                                             htmlFor="email"
-                                            className={`absolute left-3 transition-all duration-200 ${focusedField === 'email' || formData.email
-                                                ? '-top-2 text-xs text-indigo-400 bg-gray-800 px-1 z-10'
-                                                : 'top-2 text-gray-400'
-                                                }`}
+                                            className={`absolute left-3 transition-all duration-200 ${
+                                                focusedField === 'email' || formData.email
+                                                    ? '-top-2 text-xs text-indigo-400 bg-gray-800 px-1 z-10'
+                                                    : 'top-2 text-gray-400'
+                                            }`}
                                         >
                                             Email
                                         </label>
@@ -517,10 +523,11 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                                     <div className="relative">
                                         <label
                                             htmlFor="message"
-                                            className={`absolute left-3 transition-all duration-200 ${focusedField === 'message' || formData.message
-                                                ? '-top-2 text-xs text-indigo-400 bg-gray-800 px-1 z-10'
-                                                : 'top-2 text-gray-400'
-                                                }`}
+                                            className={`absolute left-3 transition-all duration-200 ${
+                                                focusedField === 'message' || formData.message
+                                                    ? '-top-2 text-xs text-indigo-400 bg-gray-800 px-1 z-10'
+                                                    : 'top-2 text-gray-400'
+                                            }`}
                                         >
                                             Message
                                         </label>
@@ -546,8 +553,9 @@ export default function Hero({ isContactModalOpen, setIsContactModalOpen }: Hero
                                     <button
                                         type="submit"
                                         disabled={formStatus.submitting}
-                                        className={`w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center ${formStatus.submitting ? "opacity-80 cursor-not-allowed" : ""
-                                            }`}
+                                        className={`w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center ${
+                                            formStatus.submitting ? "opacity-80 cursor-not-allowed" : ""
+                                        }`}
                                     >
                                         {formStatus.submitting ? (
                                             <>
