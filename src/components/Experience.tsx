@@ -15,39 +15,34 @@ export default function Experience() {
                     <div className="h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent flex-grow"></div>
                 </div>
 
-                {/* Restored vertical timeline with static dots */}
+                {/* Timeline */}
                 <div className="relative border-l border-indigo-500 ml-4 md:ml-8">
-                    {/* SQLPlus Research Experience */}
+                    {/* Research Assistant Experience */}
                     <div className="mb-10 ml-6 md:ml-10 transform transition-all duration-300">
-                        {/* Simple static dot without hover effects */}
                         <div className="absolute w-4 h-4 bg-indigo-500 rounded-full -left-2 border border-white"></div>
 
                         <div className="p-5 rounded-lg bg-gray-900/50 border border-gray-800 transition-all duration-300 hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 hover:bg-gray-800/30">
                             <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
-                                <time className="text-sm font-semibold text-cyan-400">Mar 2025 - Present</time>
-                                <h3 className="text-lg font-semibold text-white">Research Assistant</h3>
+                                <time className="text-sm font-semibold text-cyan-400">Mar 2025 – Present</time>
+                                <h3 className="text-lg font-semibold text-white">Undergraduate Research Assistant</h3>
                             </div>
-                            <h4 className="text-md font-medium text-indigo-300 mt-1">SQLPlus Project</h4>
+                            <h4 className="text-md font-medium text-indigo-300 mt-1">SQLPlus Research – University of Hawaiʻi</h4>
                             <p className="text-sm text-gray-400 mt-2">
-                                Working directly with faculty on developing SQLPlus, an extension that enhances SQL capabilities
-                                through additional operators. The project incorporates efficient search data retrieval techniques
-                                to minimize LLM query calls while maintaining accuracy in determining if text satisfies specific
-                                query conditions.
+                                Collaborating with Dr. Yifan Wang on database research combining AI and query optimization. Developing a PostgreSQL extension using C++ to integrate language-aware SQL operators powered by LLMs.
                             </p>
                             <ul className="list-disc list-inside text-sm text-gray-400 mt-2 space-y-1">
-                                <li>Developing extended SQL operators for enhanced database querying</li>
-                                <li>Implementing search data retrieval systems to reduce LLM query dependency</li>
-                                <li>Designing evaluation frameworks for complex text condition analysis</li>
+                                <li>Engineering a PostgreSQL extension in C++ to support new natural language SQL operators</li>
+                                <li>Building asynchronous query interfaces in C++ for non-blocking performance evaluation</li>
+                                <li>Designing retrieval strategies to compare inputs with ground-truth datasets and reduce real-time LLM dependency</li>
                             </ul>
                             <div className="flex flex-wrap gap-2 mt-3">
-                                <span className="px-2 py-1 bg-opacity-20 bg-cyan-500 text-cyan-300 rounded text-xs">SQL</span>
-                                <span className="px-2 py-1 bg-opacity-20 bg-indigo-500 text-indigo-300 rounded text-xs">LLMs</span>
-                                <span className="px-2 py-1 bg-opacity-20 bg-purple-500 text-purple-300 rounded text-xs">Database Systems</span>
+                                <span className="px-2 py-1 bg-opacity-20 bg-cyan-500 text-cyan-300 rounded text-xs">C++</span>
+                                <span className="px-2 py-1 bg-opacity-20 bg-indigo-500 text-indigo-300 rounded text-xs">SQL</span>
                             </div>
                         </div>
                     </div>
 
-                    {/* Empty timeline continuation point */}
+                    {/* Timeline dot */}
                     <div className="absolute w-3 h-3 border-2 border-indigo-500 rounded-full -left-1.5 bottom-0 animate-pulse"></div>
                 </div>
 
